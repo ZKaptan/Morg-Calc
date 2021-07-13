@@ -1,0 +1,73 @@
+:root {
+	--primary-color: #1d5888;
+	--secondary-color: #ff993b;
+	--dark-color: #292929;
+	--white-color: #dff3e4;
+}
+
+/* Boot Strap snippet for the main container */
+main > .container {
+	padding: 60px 15px 0;
+}
+
+body {
+	color: var(--dark-color);
+}
+
+/* General Styling */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: var(--primary-color);
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+	white-space: pre-wrap;
+	word-break: break-all;
+	word-wrap: break-word;
+}
+
+/* Nav Styling */
+nav {
+	background-color: var(--dark-color);
+}
+
+/* Main Styling */
+.bsicon {
+	color: #563d7c;
+}
+.jsicon {
+	color: #f0db4f;
+}
+
+.html5icon {
+	color: #e34c26;
+}
+
+.css3icon {
+	color: #2965f1;
+}
+
+.checklist li i {
+	color: var(--secondary-color);
+}
+
+/* Footer Styling */
+footer {
+	background-color: var(--dark-color);
+	padding-right: 1rem;
+}
+
+footer .social a {
+	color: var(--white-color);
+	transition: 0.2s ease-in-out;
+}
+
+footer .social a:hover {
+	opacity: 0.9;
+	color: var(--secondary-color);
+}

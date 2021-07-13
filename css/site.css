@@ -27,8 +27,12 @@ h6 {
 code[class*="language-"],
 pre[class*="language-"] {
 	white-space: pre-wrap;
+
 	word-break: break-all;
+
 	word-wrap: break-word;
+
+	font-size: 1.5rem;
 }
 
 /* Nav Styling */
@@ -55,7 +59,10 @@ nav {
 .checklist li i {
 	color: var(--secondary-color);
 }
-
+table thead tr {
+	background-color: var(--primary-color);
+	color: #fff;
+}
 /* Footer Styling */
 footer {
 	background-color: var(--dark-color);

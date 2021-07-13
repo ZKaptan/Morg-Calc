@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 	<head>
-		<title>Hundred</title>
+		<title>Morg Calc</title>
 		<!-- Required meta tags -->
 		<meta charset="utf-8" />
 		<meta
@@ -38,7 +38,7 @@
 						alt="logo"
 						class="d-inline-block align-text-top"
 					/>
-					Hundred</a
+					Morg Calc</a
 				>
 				<button
 					class="navbar-toggler"
@@ -79,29 +79,139 @@
 		<main class="flex-shrink-0">
 			<div class="container py-5 px-5">
 				<h2 class="border-2 border-bottom border-dark mt-5">
-					The Code for Hundred
+					The Code for Morg Calc
 				</h2>
 				<div class="row row-cols-1 row-cols-lg-2">
 					<div class="col-lg-8">
-						<pre class="line-numbers">
+						<div class="container">
+							<pre class="line-numbers">
                             <code class="language-javascript">
-                             function helloWorld() {
-                                 console.log("hello");
-                                 return {
-                                     title: "Harry",
-                                     author: "JK",
-                                     copies: 10000000
-                                 }
-                             }
+								function getValues() {
+									// Get input values
+									let loan = document.getElementById("loan-amount").value;
+									let months = document.getElementById("loan-time").value;
+									let rate = document.getElementById("loan-rate").value;
+									// Validate inputs
+									if (validateLoan() && validateMonths() && validateRate()) {
+										displayData(loan, months, rate);
+									}
+								}
+								
+								function totalMonthlyPayment(loan, months, rate) {
+									return (loan * (rate / 1200)) / (1 - Math.pow(1 + rate / 1200, -months));
+								}
+								
+								function principalPayment(totalMonthlyPayment, interestPayment) {
+									return totalMonthlyPayment - interestPayment;
+								}
+								
+								function interestPayment(previousBalance, rate) {
+									return (previousBalance * rate) / 1200;
+								}
+								
+								function validateLoan() {
+									const loan = document.getElementById("loan-amount");
+									const re = /^[0-9]{0,10}$/;
+									// If input does not satisfy regex, add alert class styling and return false
+									if (!re.test(loan.value)) {
+										loan.classList.add("alert-danger");
+										return false;
+									}
+									// Otherwise remove alert class and return true
+									loan.classList.remove("alert-danger");
+									return true;
+								}
+								// Same logic for following two methods
+								function validateMonths() {
+									const months = document.getElementById("loan-time");
+								
+									const re = /^[0-9]{0,5}$/;
+								
+									if (!re.test(months.value)) {
+										console.log(!re.test(months));
+										months.classList.add("alert-danger");
+										return false;
+									}
+									months.classList.remove("alert-danger");
+									return true;
+								}
+								
+								function validateRate() {
+									const rate = document.getElementById("loan-rate");
+									const re = /^[0-9]{0,3}$/;
+								
+									if (!re.test(rate.value)) {
+										rate.classList.add("alert-danger");
+										return false;
+									}
+									rate.classList.remove("alert-danger");
+									return true;
+								}
+								
+								function displayData(loan, months, rate) {
+									let totalInterest = 0;
+									let balance = loan;
+									let output = "";
+								
+									// Loop through months
+									for (let i = 0; i < months; i++) {
+										// Concat to output
+										/* Using finance functions, calculate each metric for the given month and add to output variable. Also, ensure data is formatted correctly using template literals
+										 */
+										output += `
+										<tr>
+										<td>${i + 1}</td>
+										<td>
+										$${totalMonthlyPayment(loan, months, rate).toFixed(2)}
+										</td>
+										<td>$${interestPayment(balance, rate).toFixed(2)}</td>
+								
+										<td>$${principalPayment(
+													totalMonthlyPayment(loan, months, rate),
+													interestPayment(balance, rate)
+												).toFixed(2)}</td>
+										<td>$${(totalInterest += interestPayment(balance, rate)).toFixed(
+													2
+												)}</td>
+										<td>$${Math.abs(
+													(balance -= principalPayment(
+														totalMonthlyPayment(loan, months, rate),
+														interestPayment(balance, rate)
+													)).toFixed(2)
+												)}
+											</td>
+										</tr>`;
+									}
+									// Append the data to the DOM and format correctly
+									document.getElementById(
+										"monthly-payment"
+									).textContent = `$${totalMonthlyPayment(loan, months, rate).toFixed(2)}`;
+									document.getElementById("total-principal").textContent = `$${loan}`;
+									document.getElementById(
+										"total-interest"
+									).textContent = `$${totalInterest.toFixed(2)}`;
+									document.getElementById("total-cost").textContent = `$${parseInt(
+										totalInterest + loan
+									).toFixed(2)}`;
+								
+									document.getElementById("results").innerHTML = output;
+								}
                             </code>
                         </pre>
+						</div>
 					</div>
 					<div class="col-lg-4">
-						<p>The code is structured in one function.</p>
-						<h5>Hello World</h5>
+						<p>The code is structured into multiple functions.</p>
+						<h5>getValues<h5>
 						<p>
-							Hello World is a function that displays a message of hello world
+							getValues fetches the inputs from the DOM and validates the inputs. If they are valid, it calls displayData, otherwise, the error is presented to the UI.
 						</p>
+						<h5>financeCalculations</h5>
+						<p>totalMonthlyPayment, principalPayment, and interestPayment are all functions used to calculate each piece of data that will be presented to the user</p>
+						<h5>validation</h5>
+						<p>validateLoan, validateMonths, and validateRate are functions for validation. Using Regular Expressions, each input field is checked, and depending on whether they were correct, adds or removes a class for styling</p>
+						<h5>displayData</h5>
+						<p>displayData displays the data of the user in a table format. Key information such as the total-interest is measured. Also, an output variable is created to be inserted into the DOM, which contains each month's report.</p>
 					</div>
 				</div>
 			</div>

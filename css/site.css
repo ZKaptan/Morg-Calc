@@ -12,6 +12,9 @@ main > .container {
 
 body {
 	color: var(--dark-color);
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
 }
 
 /* General Styling */
@@ -63,11 +66,7 @@ table thead tr {
 	background-color: var(--primary-color);
 	color: #fff;
 }
-button {
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-}
+
 /* Footer Styling */
 footer {
 	background-color: var(--dark-color);
